@@ -15,7 +15,7 @@ const Footer = () => {
                     built with next.js, three.js, and custom grid vectors.
                 </p>
                 <div style={{ marginTop: '0.5rem', fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                    puneet.panwar // ✦
+                    puneet.panwar // <a href="mailto:puneetpanwar4004@gmail.com" className="footer-email-link">puneetpanwar4004@gmail.com</a> // ✦
                 </div>
             </div>
         </footer>

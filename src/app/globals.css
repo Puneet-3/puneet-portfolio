@@ -740,6 +740,16 @@ em, .serif-italic {
     color: var(--text-muted);
 }
 
+.footer-email-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.footer-email-link:hover {
+    color: var(--text-primary);
+}
+
 /* Responsive Overrides */
 @media (max-width: 1200px) {
     .grid-layout, .nav-grid {
