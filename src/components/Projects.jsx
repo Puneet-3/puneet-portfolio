@@ -43,32 +43,72 @@ const Projects = () => {
     const projectData = [
         {
             id: 1,
-            title: 'Fake News Detection',
-            category: 'ml',
-            badge: 'ml & ai pipelines',
-            desc: 'A hybrid BERT + TF-IDF ensemble model designed to detect and flag fake news on large-scale text data. Deployed via Docker with a Flask REST API.',
-            tags: ['BERT', 'TF-IDF', 'Python', 'Flask', 'Docker'],
-            codeLink: 'https://github.com/Puneet-3',
+            title: 'MedAI Healthcare Platform',
+            category: 'web',
+            badge: 'featured (in progress)',
+            desc: 'A full-stack AI healthcare platform featuring Random Forest disease prediction (95%+ accuracy), NLTK intent chatbot, MobileNetV2 CNN for chest X-ray classification, and real-time doctor-patient consulting via Socket.io.',
+            tags: ['Next.js 14', 'FastAPI', 'PyTorch', 'Prisma', 'Supabase', 'Socket.io'],
+            codeLink: 'https://github.com/Puneet-3/medai-platform',
             demoLink: '#'
         },
         {
             id: 2,
-            title: 'Zerodha Trading Clone',
-            category: 'web',
-            badge: 'full-stack applications',
-            desc: 'A responsive full-stack trading application simulating stock orders, portfolio tracking, and real-time market data API consumption.',
-            tags: ['React.js', 'Node.js', 'Express', 'REST API', 'AWS EC2'],
-            codeLink: 'https://github.com/Puneet-3',
+            title: 'Real-Time Posture Detection',
+            category: 'ml',
+            badge: 'computer vision',
+            desc: 'A real-time posture detection system using MediaPipe and OpenCV that alerts users when bad sitting posture is detected via webcam to prevent back/neck pain.',
+            tags: ['MediaPipe', 'OpenCV', 'Python', 'Computer Vision'],
+            codeLink: 'https://github.com/Puneet-3/Real_Time_Posture_Detection_System',
             demoLink: '#'
         },
         {
             id: 3,
-            title: 'Spotify Clone',
+            title: 'Human Pose Estimation',
+            category: 'ml',
+            badge: 'machine learning & cv',
+            desc: 'Real-time human pose estimation and joint tracking using Python and Machine Learning models (MediaPipe/OpenCV) for analyzing body orientation.',
+            tags: ['MediaPipe', 'OpenCV', 'Python', 'ML', 'SciKit-Learn'],
+            codeLink: 'https://github.com/Puneet-3/human-pose-estimation-using-machine-learning',
+            demoLink: '#'
+        },
+        {
+            id: 4,
+            title: 'Fake News Detection',
+            category: 'ml',
+            badge: 'nlp pipelines',
+            desc: 'A hybrid BERT + TF-IDF ensemble model designed to detect and flag fake news on large-scale text data. Deployed via Docker with a Flask REST API.',
+            tags: ['BERT', 'TF-IDF', 'Python', 'Flask', 'Docker', 'NLP'],
+            codeLink: 'https://github.com/Puneet-3/Fake_News_Detection_BERT',
+            demoLink: '#'
+        },
+        {
+            id: 5,
+            title: 'Zerodha Trading Clone',
+            category: 'web',
+            badge: 'full-stack applications',
+            desc: 'A responsive full-stack stock trading platform inspired by Zerodha. Replicates user authentication, dashboard management, stock orders, and portfolio tracking.',
+            tags: ['React.js', 'Node.js', 'Express', 'MongoDB', 'REST API', 'AWS EC2'],
+            codeLink: 'https://github.com/Puneet-3/stock-trading-platform',
+            demoLink: '#'
+        },
+        {
+            id: 6,
+            title: 'Nintendo Switch Chatbox',
+            category: 'web',
+            badge: 'interactive interfaces',
+            desc: 'A rule-based chatbot with a pixel-perfect Nintendo Switch-inspired CSS UI. Powered by a FastAPI backend and NLTK regex pattern matching.',
+            tags: ['FastAPI', 'NLTK', 'HTML5', 'CSS3', 'JavaScript', 'Python'],
+            codeLink: 'https://github.com/Puneet-3/nintendo-switch-chatbox',
+            demoLink: '#'
+        },
+        {
+            id: 7,
+            title: 'Spotify Player UI',
             category: 'web',
             badge: 'frontend interfaces',
-            desc: 'Lightweight replication of the Spotify player UI. Optimized using Web Audio API buffer management for latency-free music playback.',
+            desc: 'Replication of the Spotify web player UI. Optimized using Web Audio API buffer management for latency-free music playback.',
             tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Web Audio API'],
-            codeLink: 'https://github.com/Puneet-3',
+            codeLink: 'https://github.com/Puneet-3/spotify_clone',
             demoLink: '#'
         }
     ];
