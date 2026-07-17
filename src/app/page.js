@@ -12,9 +12,8 @@ import Footer from '../components/Footer';
 
 export default function Home() {
     const [theme, setTheme] = useState('dark');
-    const [currentTime, setCurrentTime] = useState('');
-    const [currentDate, setCurrentDate] = useState('');
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     // Scroll progress listener
     useEffect(() => {
@@ -32,43 +31,34 @@ export default function Home() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Load theme in useEffect to prevent SSR hydration mismatches
+    // Load theme + dismiss loading screen
     useEffect(() => {
         const savedTheme = localStorage.getItem('portfolio-theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         setTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
 
-        // System Clock Logic
-        const updateClock = () => {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour12: true });
-            const dateStr = now.toLocaleDateString('en-US', { 
-                weekday: 'short', 
-                month: 'short', 
-                day: 'numeric', 
-                year: 'numeric' 
-            });
-            setCurrentTime(timeStr);
-            setCurrentDate(dateStr);
-        };
-        updateClock();
-        const timer = setInterval(updateClock, 1000);
-        return () => clearInterval(timer);
+        // Dismiss loading screen after animations complete
+        const timer = setTimeout(() => setIsLoading(false), 2000);
+        return () => clearTimeout(timer);
     }, []);
 
     useEffect(() => {
         const body = document.body;
         if (!body) return;
-        if (theme === 'dark') {
-            body.className = 'dark-mode';
-        } else {
-            body.className = 'light-mode';
-        }
+        body.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
         localStorage.setItem('portfolio-theme', theme);
     }, [theme]);
 
     return (
         <div className="app-container">
+            {/* Loading Screen */}
+            <div className={`loading-screen ${!isLoading ? 'hidden' : ''}`}>
+                <div className="loading-logo">puneet.panwar</div>
+                <div className="loading-bar-track">
+                    <div className="loading-bar-fill" />
+                </div>
+            </div>
+
             {/* Scrolling progress indicator */}
             <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }}></div>
 
@@ -87,7 +77,7 @@ export default function Home() {
 
                     {/* Main Content Sections */}
                     <main>
-                        <Hero theme={theme} currentTime={currentTime} currentDate={currentDate} />
+                        <Hero theme={theme} />
                         <About theme={theme} />
                         <Experience />
                         <Projects />

@@ -1,61 +1,68 @@
 "use client";
 
 import React from 'react';
+import useScrollReveal from '../hooks/useScrollReveal';
+
+const skillGroups = [
+    {
+        title: 'Programming Languages',
+        icon: '⌘',
+        skills: ['Java', 'Python', 'C++', 'JavaScript', 'SQL', 'HTML / CSS']
+    },
+    {
+        title: 'ML & Data Science',
+        icon: '◈',
+        skills: ['Scikit-learn', 'NumPy', 'Pandas', 'OpenCV', 'BERT / NLP', 'TF-IDF']
+    },
+    {
+        title: 'Web Development',
+        icon: '◇',
+        skills: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express', 'Flask']
+    },
+    {
+        title: 'Cloud & DevOps',
+        icon: '△',
+        skills: ['AWS (EC2, S3)', 'Docker', 'Git / GitHub', 'CI/CD']
+    },
+    {
+        title: 'AI Automation & Agents',
+        icon: '✦',
+        skills: ['MCP Runtimes', 'n8n Workflows', 'RAG Pipelines', 'LLM Integrations']
+    }
+];
 
 const Skills = () => {
-    const skillGroups = [
-        {
-            title: 'programming languages',
-            skills: ['Java', 'Python', 'C++', 'JavaScript', 'SQL', 'HTML / CSS']
-        },
-        {
-            title: 'ml & data science',
-            skills: ['Scikit-learn', 'NumPy', 'Pandas', 'OpenCV', 'BERT / NLP', 'TF-IDF']
-        },
-        {
-            title: 'web development',
-            skills: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express', 'Flask']
-        },
-        {
-            title: 'cloud & devops',
-            skills: ['AWS (EC2, S3)', 'Docker', 'Git / GitHub', 'CI/CD']
-        },
-        {
-            title: 'ai automation & agents',
-            skills: ['MCP Runtimes', 'n8n Workflows', 'RAG Pipelines', 'LLM Integrations']
-        }
-    ];
+    const headingRef = useScrollReveal();
+    const gridRef = useScrollReveal({ threshold: 0.05 });
 
     return (
         <section id="skills" style={{ borderBottom: 'none', padding: '0' }}>
             {/* Row 1: Header */}
             <div className="grid-layout">
-                <div className="grid-cell span-5">
+                <div className="grid-cell span-5 scroll-reveal" ref={headingRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
                     <div className="plus-intersection plus-top-right">+</div>
                     <div className="plus-intersection plus-bottom-right">+</div>
-                    <h2 style={{ fontSize: '2rem', fontWeight: '800', textTransform: 'lowercase', letterSpacing: '-1px' }}>
-                        (capabilities)
-                    </h2>
+                    <h2 className="section-heading">(capabilities)</h2>
                 </div>
             </div>
 
-            {/* Row 2: Editorial Skills List */}
+            {/* Row 2: Glassmorphic Skill Cards */}
             <div className="grid-layout">
-                {/* Col 1-5: Editorial Skills List (Merged with Gutters) */}
-                <div className="grid-cell span-5">
+                <div className="grid-cell span-5 scroll-reveal" ref={gridRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
                     <div className="plus-intersection plus-top-right">+</div>
                     <div className="plus-intersection plus-bottom-right">+</div>
 
-                    <div style={{ width: '100%' }}>
+                    <div className="skills-grid-container">
                         {skillGroups.map((group, index) => (
-                            <div key={index} className="skills-editorial-grid">
-                                <h3 className="skills-category-title" style={{ textTransform: 'lowercase' }}>
+                            <div key={index} className="skills-group-card">
+                                <div className="skills-group-title">
+                                    <span style={{ marginRight: '0.5rem', fontSize: '0.85rem' }}>{group.icon}</span>
                                     {group.title}
-                                </h3>
+                                </div>
                                 <div className="skills-tags-wrap">
                                     {group.skills.map((skill, i) => (
                                         <span key={i} className="skill-tag-pill">

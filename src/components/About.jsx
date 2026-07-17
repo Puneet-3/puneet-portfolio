@@ -1,28 +1,30 @@
 import React from 'react';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 const About = () => {
+    const headingRef = useScrollReveal();
+    const contentRef = useScrollReveal({ threshold: 0.1 });
+
     return (
         <section id="about" style={{ borderBottom: 'none', padding: '0' }}>
             {/* Header row for About section */}
             <div className="grid-layout">
-                <div className="grid-cell span-5">
+                <div className="grid-cell span-5 scroll-reveal" ref={headingRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
                     <div className="plus-intersection plus-top-right">+</div>
                     <div className="plus-intersection plus-bottom-right">+</div>
-                    <h2 style={{ fontSize: '2rem', fontWeight: '800', textTransform: 'lowercase', letterSpacing: '-1px' }}>
-                        (about me)
-                    </h2>
+                    <h2 className="section-heading">(about me)</h2>
                 </div>
             </div>
 
             {/* Main content grid for About section */}
             <div className="grid-layout">
-                {/* Column 1, 2 & 3: Journey Story (Merged with Left Gutter) */}
-                <div className="grid-cell about-left-cell">
+                {/* Column 1, 2 & 3: Journey Story */}
+                <div className="grid-cell about-left-cell scroll-reveal" ref={contentRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
-                    
+
                     <div className="meta-widget" style={{ marginBottom: '2rem' }}>
                         <span className="meta-widget-title">narrative.txt</span>
                     </div>
@@ -35,7 +37,7 @@ const About = () => {
                     </p>
                 </div>
 
-                {/* Column 4 & 5: Education History (Merged with Right Gutter) */}
+                {/* Column 4 & 5: Education History */}
                 <div className="grid-cell about-right-cell">
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
