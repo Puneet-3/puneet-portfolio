@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X, FileText, ExternalLink } from 'lucide-react';
 
 const Navbar = ({ theme, setTheme }) => {
     const [mobileActive, setMobileActive] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
+    const [resumeOpen, setResumeOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,6 +25,24 @@ const Navbar = ({ theme, setTheme }) => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setResumeOpen(false);
+            }
+        };
+        if (resumeOpen) {
+            document.body.style.overflow = 'hidden';
+            window.addEventListener('keydown', handleKeyDown);
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [resumeOpen]);
 
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -77,6 +96,16 @@ const Navbar = ({ theme, setTheme }) => {
                                 >
                                     contact
                                 </a>
+                            </li>
+                            <li>
+                                <button
+                                    type="button"
+                                    onClick={() => setResumeOpen(true)}
+                                    className="nav-link nav-resume-btn"
+                                    title="View Resume"
+                                >
+                                    resume
+                                </button>
                             </li>
                         </ul>
                     </nav>
@@ -151,7 +180,70 @@ const Navbar = ({ theme, setTheme }) => {
                                 (contact)
                             </a>
                         </li>
+                        <li>
+                            <button
+                                type="button"
+                                className="mobile-nav-link"
+                                onClick={() => {
+                                    setMobileActive(false);
+                                    setResumeOpen(true);
+                                }}
+                            >
+                                (resume)
+                            </button>
+                        </li>
                     </ul>
+                </div>
+            )}
+
+            {/* Resume Viewer Modal */}
+            {resumeOpen && (
+                <div
+                    className="resume-modal-backdrop"
+                    onClick={() => setResumeOpen(false)}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Resume Viewer"
+                >
+                    <div
+                        className="resume-modal-container"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="resume-modal-header">
+                            <div className="resume-modal-title">
+                                <FileText size={16} />
+                                <span>Puneet_resume_oct.pdf</span>
+                            </div>
+                            <div className="resume-modal-actions">
+                                <a
+                                    href="/Puneet_resume_oct.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="resume-action-btn"
+                                    title="Open directly in new tab"
+                                >
+                                    <ExternalLink size={13} />
+                                    <span>open tab</span>
+                                </a>
+                                <button
+                                    onClick={() => setResumeOpen(false)}
+                                    className="resume-close-btn"
+                                    aria-label="Close Resume"
+                                    title="Close (Esc)"
+                                >
+                                    <X size={16} />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="resume-modal-body">
+                            <iframe
+                                src="/Puneet_resume_oct.pdf#toolbar=1&navpanes=0"
+                                title="Puneet Panwar Resume"
+                                className="resume-iframe"
+                            />
+                        </div>
+                    </div>
                 </div>
             )}
 
@@ -224,6 +316,134 @@ const Navbar = ({ theme, setTheme }) => {
                 @keyframes slideDown {
                     from { transform: translateY(-10px); opacity: 0; }
                     to { transform: translateY(0); opacity: 1; }
+                }
+
+                .nav-resume-btn {
+                    cursor: pointer;
+                    background: var(--bg-card);
+                    display: inline-flex;
+                    align-items: center;
+                    font-family: inherit;
+                    color: var(--text-primary);
+                    border-color: rgba(59, 130, 246, 0.4);
+                }
+
+                .nav-resume-btn:hover {
+                    border-color: #3b82f6;
+                    color: #3b82f6;
+                }
+
+                .resume-modal-backdrop {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.75);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    z-index: 99999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 1.5rem;
+                    animation: fadeInModal 0.2s ease-out;
+                }
+
+                .resume-modal-container {
+                    width: 100%;
+                    max-width: 960px;
+                    height: 88vh;
+                    background: var(--bg-app);
+                    border: 1px solid var(--border-color);
+                    border-radius: 14px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                }
+
+                .resume-modal-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.8rem 1.25rem;
+                    border-bottom: 1px solid var(--border-color);
+                    background: var(--bg-surface);
+                }
+
+                .resume-modal-title {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-family: var(--font-mono);
+                    font-size: 0.82rem;
+                    color: var(--text-primary);
+                    font-weight: 600;
+                }
+
+                .resume-modal-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                }
+
+                .resume-action-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.35rem;
+                    padding: 0.3rem 0.75rem;
+                    border-radius: 20px;
+                    border: 1px solid var(--border-color);
+                    background: var(--bg-card);
+                    color: var(--text-secondary);
+                    font-size: 0.75rem;
+                    font-family: var(--font-mono);
+                    text-decoration: none;
+                    transition: all 0.2s ease;
+                }
+
+                .resume-action-btn:hover {
+                    color: var(--text-primary);
+                    border-color: var(--text-primary);
+                }
+
+                .resume-close-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: transparent;
+                    border: 1px solid var(--border-color);
+                    border-radius: 50%;
+                    width: 28px;
+                    height: 28px;
+                    color: var(--text-secondary);
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+
+                .resume-close-btn:hover {
+                    color: var(--text-primary);
+                    border-color: var(--text-primary);
+                    transform: scale(1.08);
+                }
+
+                .resume-modal-body {
+                    flex: 1;
+                    width: 100%;
+                    background: #2b2b2b;
+                }
+
+                .resume-iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    display: block;
+                }
+
+                @keyframes fadeInModal {
+                    from { opacity: 0; transform: scale(0.97); }
+                    to { opacity: 1; transform: scale(1); }
                 }
 
                 @media (max-width: 992px) {

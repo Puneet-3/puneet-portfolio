@@ -140,7 +140,7 @@ const Hero = ({ theme }) => {
                         <span className="meta-widget-title">status.log</span>
                         <span className="meta-widget-value" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                             <span className="status-indicator-beacon" />
-                            <span>available for hire · remote / hybrid</span>
+                            <span>available for hire</span>
                         </span>
                     </div>
                 </div>
