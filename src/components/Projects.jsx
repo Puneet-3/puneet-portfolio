@@ -67,7 +67,7 @@ const projectData = [
         desc: 'A responsive full-stack stock trading platform inspired by Zerodha. Replicates user authentication, dashboard management, stock orders, and portfolio tracking.',
         tags: ['React.js', 'Node.js', 'Express', 'MongoDB', 'REST API', 'AWS EC2'],
         codeLink: 'https://github.com/Puneet-3/stock-trading-platform',
-        demoLink: '#'
+        demoLink: 'https://stock-trading-platform-9uo0klrsd-puneet-s-projects46.vercel.app/'
     },
     {
         id: 6,
