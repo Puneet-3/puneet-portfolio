@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useScrollStory } from '../hooks/useScrollStory';
 
 const GithubIcon = ({ size = 18 }) => (
     <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -26,20 +27,25 @@ const MailIcon = ({ size = 18 }) => (
 );
 
 const Footer = () => {
+    const { ref: footerRef } = useScrollStory({ threshold: 0.1 });
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
         <footer className="grid-layout" style={{ borderBottom: 'none', padding: '0' }}>
-            <div className="grid-cell span-5" style={{ padding: '3rem 2.5rem', alignItems: 'center', justifyContent: 'center' }}>
+            <div
+                ref={footerRef}
+                className="grid-cell span-5 scroll-reveal"
+                style={{ padding: '3.5rem 2.5rem', alignItems: 'center', justifyContent: 'center' }}
+            >
                 <div className="plus-intersection plus-top-left">+</div>
                 <div className="plus-intersection plus-top-right">+</div>
                 <div className="plus-intersection plus-bottom-left">+</div>
                 <div className="plus-intersection plus-bottom-right">+</div>
 
                 <div className="footer-content">
-                    {/* Social links */}
                     <div className="footer-social-links">
                         <a href="https://github.com/Puneet-3" target="_blank" rel="noopener noreferrer" className="footer-social-link" aria-label="GitHub">
                             <GithubIcon size={18} />
@@ -52,13 +58,11 @@ const Footer = () => {
                         </a>
                     </div>
 
-                    {/* Info text */}
                     <div className="footer-text">
                         <p>&copy; {new Date().getFullYear()} Puneet Panwar. All rights reserved.</p>
-                        <p style={{ opacity: 0.7 }}>built with next.js, three.js, and custom grid vectors.</p>
+                        <p style={{ opacity: 0.7, marginTop: '0.25rem' }}>built with next.js, three.js, and custom grid vectors.</p>
                     </div>
 
-                    {/* Back to top */}
                     <button onClick={scrollToTop} className="back-to-top-btn" aria-label="Back to top">
                         <ArrowUp size={16} />
                     </button>
@@ -69,3 +73,4 @@ const Footer = () => {
 };
 
 export default Footer;
+export { Footer };

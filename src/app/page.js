@@ -15,7 +15,7 @@ export default function Home() {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Scroll progress listener
+    // Subtle scroll progress listener for the top indicator
     useEffect(() => {
         const handleScroll = () => {
             const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -26,19 +26,19 @@ export default function Home() {
                 setScrollProgress(0);
             }
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Load theme + dismiss loading screen
+    // Load saved theme or system preference
     useEffect(() => {
         const savedTheme = localStorage.getItem('portfolio-theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         setTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
 
-        // Dismiss loading screen after animations complete
-        const timer = setTimeout(() => setIsLoading(false), 2000);
+        // Dismiss loading screen quickly & cleanly
+        const timer = setTimeout(() => setIsLoading(false), 900);
         return () => clearTimeout(timer);
     }, []);
 
@@ -59,10 +59,10 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Scrolling progress indicator */}
-            <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }}></div>
+            {/* Minimalist Top Scroll Progress Bar */}
+            <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
 
-            {/* Liquid glass background blobs */}
+            {/* Ambient Background Glows */}
             <div className="glass-blobs-wrapper">
                 <div className="glass-blob blob-1"></div>
                 <div className="glass-blob blob-2"></div>
@@ -72,10 +72,10 @@ export default function Home() {
 
             <div className="zine-canvas">
                 <div className="canvas-content">
-                    {/* Floating pill navigation bar */}
+                    {/* Header Navbar */}
                     <Navbar theme={theme} setTheme={setTheme} />
 
-                    {/* Main Content Sections */}
+                    {/* Main Sections */}
                     <main>
                         <Hero theme={theme} />
                         <About theme={theme} />

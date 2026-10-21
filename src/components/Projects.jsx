@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import useScrollReveal from '../hooks/useScrollReveal';
+import { useScrollStory } from '../hooks/useScrollStory';
 
-const GithubIcon = ({ size = 18 }) => (
+const GithubIcon = ({ size = 15 }) => (
     <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
         <path d="M9 18c-4.51 2-5-2-7-2" />
     </svg>
 );
 
-const ExternalLinkIcon = ({ size = 18 }) => (
+const ExternalLinkIcon = ({ size = 15 }) => (
     <svg viewBox="0 0 24 24" width={size} height={size} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15 3h6v6" />
         <path d="M10 14 21 3" />
@@ -27,7 +27,7 @@ const projectData = [
         desc: 'A full-stack AI healthcare platform featuring Random Forest disease prediction (95%+ accuracy), NLTK intent chatbot, MobileNetV2 CNN for chest X-ray classification, and real-time doctor-patient consulting via Socket.io.',
         tags: ['Next.js 14', 'FastAPI', 'PyTorch', 'Prisma', 'Supabase', 'Socket.io'],
         codeLink: 'https://github.com/Puneet-3/medai-platform',
-        demoLink: 'https://medai-platform-seven.vercel.app'
+        demoLink: 'https://v0-med-ai-p.vercel.app/'
     },
     {
         id: 2,
@@ -91,26 +91,69 @@ const projectData = [
     }
 ];
 
+const ProjectCard = ({ project, index }) => {
+    const { ref, isInView } = useScrollStory({ threshold: 0.1 });
+
+    return (
+        <div
+            ref={ref}
+            className={`project-card scroll-reveal ${isInView ? 'revealed' : ''}`}
+            style={{
+                transitionDelay: `${(index % 3) * 0.08}s`
+            }}
+        >
+            <div className="project-card-header">
+                <span className="project-category">{project.badge}</span>
+                <span className="project-number">0{project.id}</span>
+            </div>
+
+            <h3 className="project-title">{project.title}</h3>
+            <p className="project-desc">{project.desc}</p>
+
+            <div className="project-tags">
+                {project.tags.map((tag, i) => (
+                    <span key={i} className="project-tag">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+
+            <div className="project-link-row">
+                <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                    <GithubIcon size={14} /> <span>github</span>
+                </a>
+                {project.demoLink !== '#' && (
+                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="project-link-btn demo-btn">
+                        <ExternalLinkIcon size={14} /> <span>live demo</span>
+                    </a>
+                )}
+            </div>
+        </div>
+    );
+};
+
 const Projects = () => {
     const [filter, setFilter] = useState('all');
-    const headingRef = useScrollReveal();
-    const gridRef = useScrollReveal({ threshold: 0.05 });
+    const { ref: headerRef } = useScrollStory({ threshold: 0.1 });
 
     const filteredProjects = projectData.filter(
         project => filter === 'all' || project.category === filter
     );
 
     return (
-        <section id="projects" style={{ borderBottom: 'none', padding: '0' }}>
-            {/* Row 1: Header + Filter tabs */}
+        <section id="projects" className="story-section" style={{ borderBottom: 'none', padding: '0' }}>
+            {/* Header row + Filter buttons */}
             <div className="grid-layout">
-                <div className="grid-cell project-title-cell scroll-reveal" ref={headingRef}>
+                <div className="grid-cell project-title-cell scroll-reveal" ref={headerRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
-                    <h2 className="section-heading">(selected works)</h2>
+                    <div className="section-header-flex">
+                        <h2 className="section-heading">(selected works)</h2>
+                        <span className="section-chapter-tag">03 // artifacts</span>
+                    </div>
                 </div>
 
-                <div className="grid-cell project-filter-cell" style={{ flexDirection: 'row', alignItems: 'center', gap: '1.5rem' }}>
+                <div className="grid-cell project-filter-cell" style={{ flexDirection: 'row', alignItems: 'center', gap: '1.25rem' }}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
 
@@ -130,42 +173,21 @@ const Projects = () => {
                 </div>
             </div>
 
-            {/* Row 2: Grid of Project Cards */}
+            {/* Grid of Project Cards */}
             <div className="grid-layout">
-                <div className="grid-cell span-5 scroll-reveal" ref={gridRef}>
+                <div className="grid-cell span-5" style={{ padding: '3rem 2.5rem' }}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
                     <div className="plus-intersection plus-top-right">+</div>
                     <div className="plus-intersection plus-bottom-right">+</div>
 
                     <div className="projects-editorial-grid" key={filter}>
-                        {filteredProjects.map(project => (
-                            <div key={project.id} className="project-card">
-                                <div className="project-card-header">
-                                    <span className="project-category">{project.badge}</span>
-                                    <span className="project-number">0{project.id}</span>
-                                </div>
-
-                                <h3 className="project-title">{project.title}</h3>
-                                <p className="project-desc">{project.desc}</p>
-
-                                <div className="project-tags">
-                                    {project.tags.map((tag, i) => (
-                                        <span key={i} className="project-tag">{tag}</span>
-                                    ))}
-                                </div>
-
-                                <div className="project-link-row">
-                                    <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="project-link-btn">
-                                        <GithubIcon size={14} /> github
-                                    </a>
-                                    {project.demoLink !== '#' && (
-                                        <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="project-link-btn">
-                                            <ExternalLinkIcon size={14} /> live demo
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
+                        {filteredProjects.map((project, index) => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                index={index}
+                            />
                         ))}
                     </div>
                 </div>

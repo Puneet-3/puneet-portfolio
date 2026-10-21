@@ -1,73 +1,125 @@
+"use client";
+
 import React from 'react';
-import useScrollReveal from '../hooks/useScrollReveal';
+import { useScrollStory, useCountUp } from '../hooks/useScrollStory';
+import { GraduationCap, Award, Database, Sparkles } from 'lucide-react';
 
 const About = () => {
-    const headingRef = useScrollReveal();
-    const contentRef = useScrollReveal({ threshold: 0.1 });
+    const { ref: headerRef } = useScrollStory({ threshold: 0.1 });
+    const { ref: narrativeRef } = useScrollStory({ threshold: 0.15 });
+    const { ref: statsRef, isInView: statsInView } = useScrollStory({ threshold: 0.15 });
+    const { ref: educationRef } = useScrollStory({ threshold: 0.15 });
+
+    // Animated count-up numbers triggered on scroll into view
+    const projectsCount = useCountUp(15, 1400, statsInView, 0, '+');
+    const cgpaCount = useCountUp(8.85, 1600, statsInView, 2, '');
+    const samplesCount = useCountUp(5, 1200, statsInView, 0, 'k+');
 
     return (
-        <section id="about" style={{ borderBottom: 'none', padding: '0' }}>
-            {/* Header row for About section */}
+        <section id="about" className="story-section" style={{ borderBottom: 'none', padding: '0' }}>
+            {/* Header row */}
             <div className="grid-layout">
-                <div className="grid-cell span-5 scroll-reveal" ref={headingRef}>
+                <div ref={headerRef} className="grid-cell span-5 scroll-reveal">
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
                     <div className="plus-intersection plus-top-right">+</div>
                     <div className="plus-intersection plus-bottom-right">+</div>
-                    <h2 className="section-heading">(about me)</h2>
+                    <div className="section-header-flex">
+                        <h2 className="section-heading">(about me)</h2>
+                        <span className="section-chapter-tag">01 // identity</span>
+                    </div>
                 </div>
             </div>
 
-            {/* Main content grid for About section */}
+            {/* Content grid */}
             <div className="grid-layout">
-                {/* Column 1, 2 & 3: Journey Story */}
-                <div className="grid-cell about-left-cell scroll-reveal" ref={contentRef}>
+                {/* Left Column: Narrative & Stats */}
+                <div className="grid-cell about-left-cell scroll-reveal" ref={narrativeRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
 
-                    <div className="meta-widget" style={{ marginBottom: '2rem' }}>
+                    <div className="meta-widget" style={{ marginBottom: '1.5rem' }}>
                         <span className="meta-widget-title">narrative.txt</span>
                     </div>
 
-                    <p style={{ marginBottom: '1.5rem', fontSize: '1.05rem' }}>
-                        I am a developer bridging the gap between <em>intelligent machine learning models</em> and fluid, user-friendly frontend interfaces.
+                    <p style={{ marginBottom: '1.25rem', fontSize: '1.05rem', lineHeight: '1.7', color: 'var(--text-primary)' }}>
+                        I am a developer bridging the gap between <em className="serif-italic">intelligent machine learning models</em> and fluid, user-friendly frontend interfaces.
                     </p>
-                    <p style={{ fontSize: '1.05rem' }}>
-                        With an academic foundation in AI/ML at <strong>VIT Bhopal University</strong>, I specialize in engineering automated workflows, deploying agentic nodes, and building web applications that scale.
+                    <p style={{ fontSize: '1.05rem', lineHeight: '1.7', color: 'var(--text-secondary)' }}>
+                        With an academic foundation in AI/ML at <strong style={{ color: 'var(--text-primary)' }}>VIT Bhopal University</strong>, I specialize in engineering automated workflows, deploying agentic nodes, and building web applications that scale.
                     </p>
+
+                    {/* Animated Stat Cards */}
+                    <div
+                        ref={statsRef}
+                        className="about-stats-grid"
+                        style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '2.5rem' }}
+                    >
+                        <div className="about-stat-card">
+                            <div className="stat-card-icon-wrap">
+                                <Award size={16} />
+                            </div>
+                            <div className="stat-number">{projectsCount}</div>
+                            <div className="stat-label">projects shipped</div>
+                        </div>
+
+                        <div className="about-stat-card active-highlight">
+                            <div className="stat-card-icon-wrap">
+                                <Sparkles size={16} />
+                            </div>
+                            <div className="stat-number highlight-accent">{cgpaCount}</div>
+                            <div className="stat-label">cgpa · 8.85 / 10</div>
+                        </div>
+
+                        <div className="about-stat-card">
+                            <div className="stat-card-icon-wrap">
+                                <Database size={16} />
+                            </div>
+                            <div className="stat-number">{samplesCount}</div>
+                            <div className="stat-label">data samples</div>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Column 4 & 5: Education History */}
-                <div className="grid-cell about-right-cell">
+                {/* Right Column: Education */}
+                <div className="grid-cell about-right-cell scroll-reveal" ref={educationRef}>
                     <div className="plus-intersection plus-top-left">+</div>
                     <div className="plus-intersection plus-bottom-left">+</div>
 
-                    <div className="meta-widget" style={{ marginBottom: '2rem' }}>
+                    <div className="meta-widget" style={{ marginBottom: '1.5rem' }}>
                         <span className="meta-widget-title">academic_history.json</span>
                     </div>
 
-                    {/* Education Item 1 */}
-                    <div style={{ marginBottom: '2.5rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: '800' }}>VIT Bhopal</h3>
-                            <span style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>CGPA: 8.83</span>
+                    <div className="academic-flow-track">
+                        {/* VIT Bhopal */}
+                        <div className="academic-card">
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <GraduationCap size={18} className="academic-icon" />
+                                    <h3 style={{ fontSize: '1.15rem', fontWeight: '800' }}>VIT Bhopal</h3>
+                                </div>
+                                <span className="academic-cgpa-pill">CGPA: 8.85</span>
+                            </div>
+                            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', marginTop: '0.4rem', lineHeight: '1.6' }}>
+                                B.Tech., Computer Science (AI &amp; ML)<br />
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--text-muted)' }}>2023 – 2027</span>
+                            </p>
                         </div>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                            B.Tech., Computer Science (AI & ML)<br />
-                            2023 – Present
-                        </p>
-                    </div>
 
-                    {/* Education Item 2 */}
-                    <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', fontWeight: '800' }}>JNV Fatehabad</h3>
-                            <span style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>CBSE</span>
+                        {/* JNV Fatehabad */}
+                        <div className="academic-card" style={{ marginTop: '1.25rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <GraduationCap size={18} className="academic-icon" />
+                                    <h3 style={{ fontSize: '1.15rem', fontWeight: '800' }}>JNV Fatehabad</h3>
+                                </div>
+                                <span className="academic-badge-pill">CBSE</span>
+                            </div>
+                            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', marginTop: '0.4rem', lineHeight: '1.6' }}>
+                                Higher Secondary Education (PCM)<br />
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--text-muted)' }}>2015 – 2022</span>
+                            </p>
                         </div>
-                        <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                            Higher Secondary Education<br />
-                            2015 – 2022
-                        </p>
                     </div>
                 </div>
             </div>
@@ -76,3 +128,4 @@ const About = () => {
 };
 
 export default About;
+export { About };

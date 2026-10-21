@@ -13,14 +13,12 @@ const AboutPortrait = () => {
         if (!card) return;
 
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left; // mouse x position relative to card
-        const y = e.clientY - rect.top;  // mouse y position relative to card
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        // Calculate rotation angles relative to center coordinates
-        // Limit max rotation to 12 degrees to maintain a sleek, premium experience
         const rotateX = ((centerY - y) / centerY) * 12;
         const rotateY = ((x - centerX) / centerX) * 12;
 
@@ -28,18 +26,17 @@ const AboutPortrait = () => {
     };
 
     const handleMouseLeave = () => {
-        // Smooth transition back to neutral state on mouse leave
         setTransformStyle('rotateX(0deg) rotateY(0deg) scale(1)');
     };
 
     return (
         <div className="about-portrait-container">
-            {/* Glowing neon backdrop for dark mode */}
+            {/* Glowing backdrop */}
             <div className="about-portrait-glow" />
-            
+
             {/* Floating wrap animation element */}
             <div className="about-portrait-card-float-wrap">
-                <div 
+                <div
                     ref={cardRef}
                     className="about-portrait-card"
                     onMouseMove={handleMouseMove}
@@ -47,10 +44,18 @@ const AboutPortrait = () => {
                     style={{ transform: transformStyle }}
                 >
                     <div className="about-portrait-image-wrapper">
-                        <Image 
+                        <Image
                             src={portraitImg}
                             alt="Puneet Panwar - Geometric Portrait"
                             className="about-portrait-image"
+                            width={420}
+                            height={420}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                display: 'block'
+                            }}
                             placeholder="blur"
                             priority
                         />
