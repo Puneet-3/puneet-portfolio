@@ -20,13 +20,24 @@ const ExternalLinkIcon = ({ size = 15 }) => (
 
 const projectData = [
     {
+        id: 8,
+        title: 'PayFlow Digital Wallet',
+        category: 'web',
+        badge: 'featured',
+        desc: 'A practice wallet with simulated deposits, peer-to-peer transfers, and transaction history. PostgreSQL transactions, ordered row locks, and idempotency keys keep balance updates and payment retries consistent.',
+        tags: ['React', 'Node.js', 'Express', 'PostgreSQL', 'JWT'],
+        codeLink: 'https://github.com/Puneet-3/PayFlow',
+        demoLink: 'https://payflow-git-deploy-vercel-preview-puneet-s-projects46.vercel.app/',
+        demoLabel: 'wallet preview'
+    },
+    {
         id: 1,
         title: 'MedAI Healthcare Platform',
         category: 'web',
         badge: 'featured',
-        desc: 'A full-stack AI healthcare platform featuring Random Forest disease prediction (95%+ accuracy), NLTK intent chatbot, MobileNetV2 CNN for chest X-ray classification, and real-time doctor-patient consulting via Socket.io.',
-        tags: ['Next.js 14', 'FastAPI', 'PyTorch', 'Prisma', 'Supabase', 'Socket.io'],
-        codeLink: 'https://github.com/Puneet-3/medai-platform',
+        desc: 'An experimental healthcare platform with role-based workspaces, private medical reports, symptom prediction, pediatric X-ray screening, and authenticated text consultations. Built for learning and demonstration.',
+        tags: ['Next.js 16', 'FastAPI', 'PyTorch', 'Prisma', 'Supabase', 'Socket.IO'],
+        codeLink: 'https://github.com/Puneet-3/MedAI-Platform',
         demoLink: 'https://v0-med-ai-p.vercel.app/'
     },
     {
@@ -37,7 +48,7 @@ const projectData = [
         desc: 'A real-time posture detection system using MediaPipe and OpenCV that alerts users when bad sitting posture is detected via webcam to prevent back/neck pain.',
         tags: ['MediaPipe', 'OpenCV', 'Python', 'Computer Vision'],
         codeLink: 'https://github.com/Puneet-3/Real_Time_Posture_Detection_System',
-        demoLink: '#'
+        demoLink: null
     },
     {
         id: 3,
@@ -47,7 +58,7 @@ const projectData = [
         desc: 'Real-time human pose estimation and joint tracking using Python and Machine Learning models (MediaPipe/OpenCV) for analyzing body orientation.',
         tags: ['MediaPipe', 'OpenCV', 'Python', 'ML', 'SciKit-Learn'],
         codeLink: 'https://github.com/Puneet-3/human-pose-estimation-using-machine-learning',
-        demoLink: '#'
+        demoLink: null
     },
     {
         id: 4,
@@ -57,17 +68,17 @@ const projectData = [
         desc: 'A hybrid BERT + TF-IDF ensemble model designed to detect and flag fake news on large-scale text data. Deployed via Docker with a Flask REST API.',
         tags: ['BERT', 'TF-IDF', 'Python', 'Flask', 'Docker', 'NLP'],
         codeLink: 'https://github.com/Puneet-3/Fake_News_Detection_BERT',
-        demoLink: '#'
+        demoLink: null
     },
     {
         id: 5,
-        title: 'Zerodha Trading Clone',
+        title: 'Paper Trading Platform',
         category: 'web',
         badge: 'full-stack',
-        desc: 'A responsive full-stack stock trading platform inspired by Zerodha. Replicates user authentication, dashboard management, stock orders, and portfolio tracking.',
-        tags: ['React.js', 'Node.js', 'Express', 'MongoDB', 'REST API', 'AWS EC2'],
+        desc: 'A full-stack trading simulator with private accounts, sample stock quotes, simulated orders, portfolio tracking, and virtual deposits. Uses virtual funds for an educational trading experience.',
+        tags: ['React', 'Node.js', 'Express', 'MongoDB', 'REST API'],
         codeLink: 'https://github.com/Puneet-3/stock-trading-platform',
-        demoLink: 'https://stock-trading-platform-9uo0klrsd-puneet-s-projects46.vercel.app/'
+        demoLink: 'https://stock-trading-platform-seven.vercel.app/'
     },
     {
         id: 6,
@@ -77,17 +88,48 @@ const projectData = [
         desc: 'A rule-based chatbot with a pixel-perfect Nintendo Switch-inspired CSS UI. Powered by a FastAPI backend and NLTK regex pattern matching.',
         tags: ['FastAPI', 'NLTK', 'HTML5', 'CSS3', 'JavaScript', 'Python'],
         codeLink: 'https://github.com/Puneet-3/nintendo-switch-chatbox',
-        demoLink: '#'
+        demoLink: null
     },
     {
         id: 7,
         title: 'Spotify Player UI',
         category: 'web',
         badge: 'frontend',
-        desc: 'Replication of the Spotify web player UI. Optimized using Web Audio API buffer management for latency-free music playback.',
-        tags: ['HTML5', 'CSS3', 'Vanilla JS', 'Web Audio API'],
+        desc: 'A responsive Spotify-inspired web player interface built with HTML, CSS, and JavaScript.',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
         codeLink: 'https://github.com/Puneet-3/spotify_clone',
-        demoLink: '#'
+        demoLink: null
+    },
+    {
+        id: 9,
+        title: 'Voice Cart Shopping Assistant',
+        category: 'web',
+        badge: 'voice & nlp',
+        desc: 'A voice-driven shopping cart and warehouse inventory interface with natural-language commands, quantity parsing, multilingual vocabulary, and contextual product suggestions.',
+        tags: ['JavaScript', 'Express', 'Web Speech API', 'NLP'],
+        codeLink: 'https://github.com/Puneet-3/voice-shopping-assistant',
+        demoLink: null
+    },
+    {
+        id: 10,
+        title: 'Sarkari Scam Detector',
+        category: 'ml',
+        badge: 'nlp',
+        desc: 'A Flask dashboard that flags suspicious government-scheme messages in Hindi, Hinglish, and English, with single-message checks, CSV processing, and privacy-preserving analytics. Predictions are model estimates.',
+        tags: ['Python', 'Flask', 'NLP', 'Scikit-learn'],
+        codeLink: 'https://github.com/Puneet-3/sarkari-scam-detector',
+        demoLink: 'https://sarkari-scam-detector-el04es4nd-puneet-s-projects46.vercel.app/',
+        demoLabel: 'preview (sign-in required)'
+    },
+    {
+        id: 11,
+        title: 'Eco-Loop Building Agents',
+        category: 'ml',
+        badge: 'ai agents',
+        desc: 'A building-energy simulation prototype that connects EnergyPlus to a local Qwen model through MCP. The agent adjusts HVAC setpoints using sensor feedback and thermal-comfort calculations, with a dashboard for comparing simulation runs.',
+        tags: ['Python', 'EnergyPlus', 'Ollama', 'MCP', 'React'],
+        codeLink: 'https://github.com/Puneet-3/eco-loop-building-agents',
+        demoLink: null
     }
 ];
 
@@ -104,7 +146,7 @@ const ProjectCard = ({ project, index }) => {
         >
             <div className="project-card-header">
                 <span className="project-category">{project.badge}</span>
-                <span className="project-number">0{project.id}</span>
+                <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
             </div>
 
             <h3 className="project-title">{project.title}</h3>
@@ -119,12 +161,12 @@ const ProjectCard = ({ project, index }) => {
             </div>
 
             <div className="project-link-row">
-                <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="project-link-btn">
+                <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="project-link-btn" aria-label={`View ${project.title} on GitHub`}>
                     <GithubIcon size={14} /> <span>github</span>
                 </a>
-                {project.demoLink !== '#' && (
-                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="project-link-btn demo-btn">
-                        <ExternalLinkIcon size={14} /> <span>live demo</span>
+                {project.demoLink && (
+                    <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="project-link-btn demo-btn" aria-label={`Open ${project.title}: ${project.demoLabel || 'live demo'}`}>
+                        <ExternalLinkIcon size={14} /> <span>{project.demoLabel || 'live demo'}</span>
                     </a>
                 )}
             </div>
@@ -165,6 +207,7 @@ const Projects = () => {
                         <button
                             key={f.key}
                             className={`filter-btn ${filter === f.key ? 'active' : ''}`}
+                            aria-pressed={filter === f.key}
                             onClick={() => setFilter(f.key)}
                         >
                             {f.label}

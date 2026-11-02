@@ -1254,6 +1254,7 @@ em, .serif-italic {
 
 .project-link-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.82rem;
     font-weight: 600;
